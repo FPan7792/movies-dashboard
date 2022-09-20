@@ -9,7 +9,7 @@ Récuperer une APIKEY générée sur : https://developers.themoviedb.org/4/getti
 Creer un fichier .env à la racine du projet
 
 **Etape 3** :
-Entrer la lignes suivante dans le fichier .env:
+Entrer la ligne suivante dans le fichier .env:
 
 ```
 VITE_TMDB_API_KEY=votreAPiKey
