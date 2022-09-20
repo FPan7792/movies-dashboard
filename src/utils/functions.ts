@@ -1,11 +1,3 @@
-// import All requested categories to display in the app
-// import type {
-//   APIResponse,
-//   APIResponse_Genre,
-//   APIResponse_Popular,
-//   Genre,
-//   Movie,
-// } from "@/types";
 import type { Ref } from "vue";
 import { categories } from "../utils/movie_categories.json";
 
@@ -25,10 +17,6 @@ export async function fetchFromApi(URL: string, isLoading: Ref<boolean>) {
   isLoading.value = false;
   return datas;
 }
-
-// export function toastNotifications(error: Error) {
-//   return alert(error);
-// }
 
 export async function createListsOfSimilarMovies(
   tableOfMovies: Movie[],
@@ -114,7 +102,7 @@ export function parseMoviesCategories(
   return tabOfCategorizedItems;
 }
 
-// ADD
+// ADD whishList
 export function addToWish(
   itemToStore: Movie_LocalStorage,
   storage: Movie_LocalStorage[],
@@ -129,6 +117,7 @@ export function addToWish(
   list.push(itemToStore);
 }
 
+// ADD remove
 export function removeFromWish(
   movieToRemove: Movie_LocalStorage,
   storage: Movie_LocalStorage[],

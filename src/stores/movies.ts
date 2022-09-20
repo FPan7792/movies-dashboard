@@ -5,8 +5,8 @@ import {
   createListsOfSimilarMovies,
   fetchFromApi,
   removeFromWish,
+  parseMoviesCategories,
 } from "@/utils/functions";
-import { parseMoviesCategories } from "../utils/functions";
 
 export const useMoviesStore = defineStore("movies", () => {
   // global state
@@ -31,10 +31,19 @@ export const useMoviesStore = defineStore("movies", () => {
   let similarMoviesListContainer: Ref<
     null | { results: Movie[]; genre_id: Genre }[]
   > = ref(null);
-  let choosenCategorie: Ref<null | string> = ref(null);
+  let choosenCategorie: Ref<null | string> = ref("Populaires");
   let movieList: Ref<Movie[] | null> = ref(null);
   let wishList: Ref<Movie_LocalStorage[]> = ref([]);
   let isLoading: Ref<boolean> = ref(false);
+  let isNotif: Ref<{
+    active: boolean;
+    message: string | null;
+    isError: boolean;
+  }> = ref({
+    active: false,
+    message: null,
+    isError: false,
+  });
 
   // DISPLAY func
   // <========================>
@@ -50,8 +59,11 @@ export const useMoviesStore = defineStore("movies", () => {
   );
   const displayMovieList = computed(() => movieList.value);
   const displayChoosenCategorie = computed(() => choosenCategorie.value);
-  const displayGeneralDatas = computed(() => datasContainer.value.allMovies);
   const displayIsLoading = computed(() => isLoading.value);
+  const displayWishList = computed(() => wishList.value);
+  const displayIsNotif = computed(() => {
+    isNotif.value;
+  });
   // <========================>
 
   // POPULAR MOVIES MANAGEMENT
@@ -80,7 +92,6 @@ export const useMoviesStore = defineStore("movies", () => {
       for (let i = 0; i < limit; i++) {
         container.push(datasContainer.value?.allMovies[i]);
       }
-      // popularMoviesContainer.value = container;
       datasContainer.value.popularMovies = container;
     }
     popularMoviesContainer.value = datasContainer.value.popularMovies;
@@ -138,7 +149,9 @@ export const useMoviesStore = defineStore("movies", () => {
   // DISPLAY any MOVIES GENRE
   async function switchChoosenCategorie(genre: string) {
     if (genre === "Populaires") {
-      choosenCategorie.value = null;
+      choosenCategorie.value = "Populaires";
+    } else if (genre === "Favoris") {
+      choosenCategorie.value = "Favoris";
     } else {
       choosenCategorie.value = genre;
       await getDatas(choosenCategorie.value);
@@ -160,7 +173,11 @@ export const useMoviesStore = defineStore("movies", () => {
 
   async function manageWishList(movie: Movie) {
     // Item will be registered
-    let itemToStore: Movie_LocalStorage = { movie: movie.title, id: movie.id };
+    let itemToStore: Movie_LocalStorage = {
+      movie: movie.title,
+      id: movie.id,
+      image: movie.backdrop_path,
+    };
     let list = wishList.value;
 
     // make sure storage exists
@@ -187,7 +204,19 @@ export const useMoviesStore = defineStore("movies", () => {
 
     wishList.value = list;
   }
-  const displayWishList = computed(() => wishList.value);
+
+  // Notification MANAGER
+  function toastNotifications(
+    message: string,
+    isError: boolean,
+    duration: number
+  ) {
+    isNotif.value = { message, active: true, isError };
+
+    setTimeout(() => {
+      isNotif.value = { message: null, active: false, isError: false };
+    }, duration);
+  }
 
   return {
     displayDatasContainer,
@@ -198,6 +227,7 @@ export const useMoviesStore = defineStore("movies", () => {
     displayChoosenCategorie,
     displayWishList,
     isLoading,
+    isNotif,
     fetchAllPopularAndCategories,
     stockPopularMoviesWithLimit,
     fetchAllCategories,
@@ -206,5 +236,6 @@ export const useMoviesStore = defineStore("movies", () => {
     switchChoosenCategorie,
     setupWishList,
     manageWishList,
+    toastNotifications,
   };
 });

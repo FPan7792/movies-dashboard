@@ -1,23 +1,6 @@
 <script setup lang="ts">
 import MovieCategoryContainer from "../components/MovieCategory/MovieCategoryContainer.vue";
 import MoviesList from "@/components/Movies/MoviesList.vue";
-
-import { useMoviesStore } from "@/stores/movies";
-
-import { onMounted } from "vue";
-
-const MoviesStore = useMoviesStore();
-// const {
-//   displaySelectedCategories,
-//   displaySimilarMoviesListContainer,
-//   displayMovieList,
-//   displayChoosenCategorie,
-// } = storeToRefs(MoviesStore);
-const { switchChoosenCategorie } = MoviesStore;
-
-onMounted(() => {
-  // switchChoosenCategorie("Action");
-});
 </script>
 
 <template>
@@ -27,7 +10,7 @@ onMounted(() => {
     ></div>
 
     <div
-      class="xl:flex xl:w-full xl:justify-center xl:items-center absolute top-0"
+      class="sm:flex sm:w-full sm:justify-center sm:items-center absolute top-0 h-full"
     >
       <MovieCategoryContainer />
       <MoviesList />

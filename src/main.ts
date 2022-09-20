@@ -12,9 +12,10 @@ import {
   faCirclePlus,
   faArrowCircleDown,
   faHeartPulse,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faCirclePlus, faArrowCircleDown, faHeartPulse);
+library.add(faCirclePlus, faArrowCircleDown, faHeartPulse, faSpinner);
 
 const app = createApp(App);
 

@@ -4,8 +4,7 @@ import { RouterLink, RouterView } from "vue-router";
 import Header from "./components/Header.vue";
 import { useMoviesStore } from "@/stores/movies";
 import { ref, onMounted, onErrorCaptured } from "vue";
-
-import { storeToRefs } from "pinia";
+import ToastNotifications from "./components/InterfaceUtils/ToastNotifications.vue";
 
 const MoviesStore = useMoviesStore();
 
@@ -28,10 +27,11 @@ onMounted(async () => {
 
 <template>
   <div
-    class="bg-white h-screen min-h-screen bg-main-bg bg-no-repeat bg-cover bg-center"
+    class="bg-white h-screen min-h-screen bg-main-bg bg-no-repeat bg-cover bg-center max-w-[1440px] mx-0 my-auto"
   >
     <Header />
     <RouterView />
+    <ToastNotifications />
   </div>
 </template>
 

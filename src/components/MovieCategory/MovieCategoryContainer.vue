@@ -3,21 +3,22 @@ import MovieCategorieTab from "./MovieCategorieTab.vue";
 
 import { useMoviesStore } from "@/stores/movies";
 import { storeToRefs } from "pinia";
-import { ref, onMounted, onErrorCaptured, onUpdated } from "vue";
 
 const MoviesStore = useMoviesStore();
-const { displaySelectedCategories, displaySimilarMoviesListContainer } =
-  storeToRefs(MoviesStore);
+const { displaySelectedCategories } = storeToRefs(MoviesStore);
 const { switchChoosenCategorie } = MoviesStore;
 
 const populaire = { name: "Populaires", id: 0 };
 </script>
 
 <template>
-  <!-- <div v-if="!displaySimilarMoviesListContainer">
-    <p>Erreur de requete. Pas de Catégorie</p>
-  </div> -->
-  <div class="xl:flex xl:justify-start xl:flex-col xl:mx-2">
+  <div
+    class="rounded-2xl px-4 flex flex-wrap sm:flex-nowrap justify-center md:justify-start items-center flex-col sm:mx-2 font-bold xl:ml-10"
+  >
+    <button @click="switchChoosenCategorie('Favoris')" class="underline">
+      Voir mes favoris
+    </button>
+
     <MovieCategorieTab
       :categorie="populaire"
       @click="switchChoosenCategorie('Populaires')"

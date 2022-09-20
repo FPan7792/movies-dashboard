@@ -1,3 +1,6 @@
+// notifs
+declare module "notiwind";
+
 type APIResponse_Popular = {
   page: number;
   results: Movie[];
@@ -27,4 +30,4 @@ interface Movie {
   vote_count: number;
 }
 
-type Movie_LocalStorage = { movie: string; id: number };
+type Movie_LocalStorage = { movie: string; id: number; image: string };
