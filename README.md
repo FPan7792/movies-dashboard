@@ -16,7 +16,15 @@ VITE_TMDB_API_KEY=votreAPiKey
 ```
 
 **Etape 4** :
-Effectuer la commande npm run dev
+Effectuer la commande 
+```npm install```
+à la racine du projet
 
 **Etape 5** :
+Effectuer la commande 
+```npm run dev```
+à la racine du projet
+
+
+**Etape 6** :
 Enjoy ! =)
